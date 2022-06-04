@@ -1,39 +1,28 @@
-# import numpy as np
-#
-#
-# def grandient_descent(x, y):
-#     theta1 = theta0 = 0
-#     iterations = 1000
-#     m = len(x)
-#     for i in range(iterations):
-#         hypothsis = theta0 + theta1 * x
-#         md = -(2/m)*sum(x*(y-hypothsis))
-#
-#
-#
-# x = np.array([1, 2, 3, 4, 5])
-# y = np.array([5, 7, 9, 11, 13])
-#
-# grandient_descent(x, y)
-
-
 import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.datasets import load_boston
 
-def gradient_descent(x,y):
-    m_curr = b_curr = 0
-    iterations = 10000
-    n = len(x)
-    learning_rate = 0.08
 
-    for i in range(iterations):
-        y_predicted = m_curr * x + b_curr
-        cost = (1/n) * sum([val**2 for val in (y-y_predicted)])
-        md = -(2/n)*sum(x*(y-y_predicted))
-        bd = -(2/n)*sum(y-y_predicted)
-        m_curr = m_curr - learning_rate * md
-        b_curr = b_curr - learning_rate * bd
-        print ("m {}, b {}, cost {} iteration {}".format(m_curr,b_curr,cost, i))
+def ComputeCost(x, y, theta1):
+    m = len(x)
+    prediction = x.dot(theta1)
+    square_error = (prediction - y) ** 2
+    return (1 / 2 * m) * np.sum(square_error)
 
-x = np.array([1,2,3,4,5])
-y = np.array([5,7,9,11,13])
-gradient_descent(x,y)
+
+def main():
+    data = pd.read_csv('Uni_linear.txt', header=None)
+    data_information = data.describe()  # Display data information
+    plt.scatter(data[0], data[1])
+    plt.xticks(np.arange(5, 30, step=5))
+    plt.yticks(np.arange(-5, 30, step=5))
+    plt.xlabel("Population of City (10,000s)")
+    plt.ylabel("Profit ($10,000")
+    plt.title("Profit Vs Population")
+    data_np = data.values  # convert dataset to np.array
+    m = len(data_np[:])
+    x = np.append()
+
+if __name__ == '__main__':
+    main()
