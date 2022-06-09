@@ -1,10 +1,6 @@
-import time
-
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn.datasets import load_boston
-from mpl_toolkits.mplot3d import Axes3D
 
 
 def ComputeCost(x, y, theta):
@@ -30,6 +26,7 @@ def GrandientDescent(x, y, theta, alpha, num_inters):
 def main():
     data = pd.read_csv('Uni_linear.txt', header=None)
     data_information = data.describe()  # Display data information
+
     plt.figure(1)
     plt.subplot(1, 1, 1)
     # plt.plot(data[0],data[1])
@@ -39,6 +36,7 @@ def main():
     plt.xlabel("Population of City (10,000s)")
     plt.ylabel("Profit ($10,000")
     plt.title("Profit Vs Population")
+
     data_np = data.values  # convert dataset to np.array
     m = len(data_np[:])
     X = np.append(np.ones((m, 1)), data_np[:, 0].reshape(m, 1), axis=1)
@@ -71,7 +69,7 @@ def main():
     plt.ylabel("J(Θ)")
 
     plt.figure(4)
-    plt.scatter(data[0],data[1])
+    plt.scatter(data[0], data[1])
     x_value = [i for i in range(25)]
     y_value = [j * theta[1] + theta[0] for j in x_value]
     plt.plot(x_value, y_value, color='red')
