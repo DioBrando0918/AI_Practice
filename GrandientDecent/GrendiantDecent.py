@@ -15,8 +15,8 @@ def GrandientDescent(x, y, theta, alpha, num_inters):
     J_history = []
 
     for i in range(num_inters):
-        predictions = x.dot(theta)
-        error = np.dot(x.transpose(), (predictions - y))
+        predictions = x.dot(theta)  # 97x2 . 2x1 = 97x1
+        error = np.dot(x.transpose(), (predictions - y))  # 2x97 . 97x1 = 2x1
         descent = alpha * 1 / m * error
         theta -= descent
         J_history.append(ComputeCost(x, y, theta))
@@ -39,12 +39,12 @@ def main():
 
     data_np = data.values  # convert dataset to np.array
     m = len(data_np[:])
-    X = np.append(np.ones((m, 1)), data_np[:, 0].reshape(m, 1), axis=1)
-    Y = data_np[:, 1].reshape(m, 1)
+    X = np.append(np.ones((m, 1)), data_np[:, 0].reshape(m, 1), axis=1)  # 97x2
+    Y = data_np[:, 1].reshape(m, 1)  # 97x1
     theta = np.zeros((2, 1))  # theta1 = theta0 = 0
     theta, J_history = GrandientDescent(X, Y, theta, 0.01, 1500)
     print(theta)
-    print(J_history)
+    print(len(J_history))
     theta0_vals = np.linspace(-10, 10, 100)
     theta1_vals = np.linspace(-1, 4, 100)
     J_vals = np.zeros((len(theta0_vals), len(theta1_vals)))
@@ -52,7 +52,6 @@ def main():
         for j in range(len(theta1_vals)):
             t = np.array([theta0_vals[i], theta1_vals[j]])
             J_vals[i, j] = ComputeCost(X, Y, t)
-
     fig = plt.figure(3)
     ax = fig.add_subplot(111, projection='3d')
     # ax = fig.add_subplot(236, projection='3d')  # row x cloumn:2 x 3 ,locate: 6 -> a26
