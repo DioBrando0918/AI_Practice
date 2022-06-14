@@ -33,6 +33,7 @@ y4 = (y1 - np.mean(y1)) / (np.max(y1) - np.min(y1))
 plt.plot(x, y1, color="blue")
 plt.plot(x, y4, color="red")
 plt.title("Mean Normalization")
+
 """
 Standardization
 """
@@ -41,8 +42,15 @@ y5 = (y1 - np.mean(y1)) / np.std(y1)
 plt.plot(x, y1, color="blue")
 plt.plot(x, y5, color="red")
 plt.title("Standradlization")
-plt.show()
 
 """
 Robust Scaling
 """
+plt.figure(5)
+y6 = np.percentile(y1, [25, 50, 75])
+y6 = y6[2] - y6[0]
+y6 = (y1 - np.median(y1))/y6
+plt.plot(x, y1, color='blue')
+plt.plot(x, y6, color="red")
+plt.title("Robust Scaling")
+plt.show()
