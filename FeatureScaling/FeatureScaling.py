@@ -8,7 +8,7 @@ Range: -1~1
 x = np.arange(0, 20, 0.4)
 max_val = np.max(x)
 y1 = 50 * np.cos(x)
-y2 = x / max_val  # 對矩陣中每個元素取正弦
+y2 = x / max_val  
 
 plt.figure(1)
 plt.plot(x, y1, color='blue')
