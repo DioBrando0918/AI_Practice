@@ -21,6 +21,10 @@ plt.plot(x, reg.predict(x), color="red")
 plt.figure(1)
 poly = PolynomialFeatures(degree=2)
 x_poly = poly.fit_transform(x)  # row1:係數 row2:一次項 row:二次項
-reg.fit(x_poly, y)
-plt.plot(x_poly, reg.predict(x_poly), color='green')
+reg.fit(x, y)
+theta_0 = reg.intercept_
+theta_1 = reg.coef_
+y_values = [i**2*theta_1 + theta_0 for i in x]
+plt.scatter(x,y_values)
+plt.plot(x, y_values, color='green')
 plt.show()
