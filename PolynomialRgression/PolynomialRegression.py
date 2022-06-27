@@ -1,30 +1,16 @@
-import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
-import statsmodels.formula.api as sm
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn import linear_model
-
-plt.figure()
-dataset = pd.read_csv("data.csv")
-x = np.array(dataset["Level"]).reshape(len(dataset["Level"]), 1)
-y = np.array(dataset["Salary"])
-plt.scatter(x, y)
-plt.xlabel("Level")
-plt.xticks(np.arange(dataset["Level"][0], (dataset["Level"][len(dataset["Level"]) - 1]) + 1, step=1))
-plt.ylabel("Salary")
-plt.title("Position vs Salary")
-reg = linear_model.LinearRegression()
-reg.fit(x, y)
-plt.plot(x, reg.predict(x), color="red")
+import numpy as np
 
 plt.figure(1)
-poly = PolynomialFeatures(degree=2)
-x_poly = poly.fit_transform(x)  # row1:係數 row2:一次項 row:二次項
-reg.fit(x, y)
-theta_0 = reg.intercept_
-theta_1 = reg.coef_
-y_values = [i**2*theta_1 + theta_0 for i in x]
-plt.scatter(x,y_values)
-plt.plot(x, y_values, color='green')
+x = [1, 2, 3, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 18, 19, 21, 22]
+y = [100, 90, 80, 60, 60, 55, 60, 65, 70, 70, 75, 76, 78, 79, 90, 99, 99, 100]
+model = np.poly1d(np.polyfit(x, y, 9))  # polyfit:最小二乘法 deg= 多項式最高次方 , poly1d:定義多項式函數
+print(model)
+x_smoothing = np.linspace(1, 22, 1000)
+plt.scatter(x, y)
+plt.plot(x, model(x), color='red')
+
+plt.figure(2)
+plt.scatter(x, y)
+plt.plot(x_smoothing, model(x_smoothing), color='green')
 plt.show()
